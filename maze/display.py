@@ -7,9 +7,9 @@ CV_42WALL: int = 5
 CV_SOL: int = 6
 
 THEMES: list[tuple[str, str, str]] = [
-    ("   ", " ", "EE"),
-    ("WW", "..", "XX"),
-    ("WW", "..", "XX"),
+    ("\033[31m▓▓\033[0m", "\033[34m▓▓\033[0m", "EE"),
+    ("\033[32m▓▓\033[0m", "\033[35m▓▓\033[0m", "XX"),
+    ("\033[33m▓▓\033[0m", "\033[36m▓▓\033[0m", "XX"),
 
 ]
 
@@ -61,6 +61,7 @@ def convert_to_canvas(
         for _ in range(ch)
     ]
 
+    # DRAW SOLUTION
     for logy in range(height):
         for logx in range(width):
             cell: int = logic[logy][logx]

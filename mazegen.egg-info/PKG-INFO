@@ -7,7 +7,7 @@ Classifier: Programming Language :: Python :: 3
 Requires-Python: >=3.10
 Description-Content-Type: text/markdown
 
-*This project has been created as part of the 42 curriculum by yjabrane, <login2>*.
+*This project has been created as part of the 42 curriculum by itemlali, ibaya.
 
 ## Description
 
@@ -89,6 +89,6 @@ path = bfs_solve(gen.logic, config)
 
 ## Team and Project Management
 
-- Roles: Single student project
+- Roles: Shared student project
 - Planning: Standard 42 project workflow
 - Tools: Python standard library only
