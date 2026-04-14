@@ -1,0 +1,13 @@
+permision files
+
+color change
+
+if maze is small print message that says i can't print 42 pattern
+
+check if we have a clear issue
+
+.whl or .tar should also be in the root of the repo
+
+
+login name in README
+
