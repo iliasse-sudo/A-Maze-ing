@@ -80,6 +80,6 @@ path = bfs_solve(gen.logic, config)
 
 ## Team and Project Management
 
-- Roles: Single student project
+- Roles: Shared student project
 - Planning: Standard 42 project workflow
 - Tools: Python standard library only
