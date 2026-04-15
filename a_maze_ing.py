@@ -79,11 +79,36 @@ def main() -> None:
             else:
                 solution_shown = True
                 canvas_copy = [row[:] for row in gen.canvas]
-                for lx, ly in path:
-                    gx = 2 * lx + 1
-                    gy = 2 * ly + 1
+
+                for i in range(len(path) - 1):
+                    cx, cy = path[i + 1]
+                    px, py = path[i]
+
+                    print(cx, cy, px, py)
+
+                    dx = cx - px
+                    dy = cy - py
+
+                    gx = 2 * px + 1
+                    gy = 2 * py + 1
+
                     if canvas_copy[gy][gx] not in (2, 3):
                         canvas_copy[gy][gx] = 6
+
+                    if dx == 1: # im moving east
+                        print("going east")
+                        canvas_copy[gy][gx + 1] = 6
+                    elif dx == -1: # im moving west
+                        print("going west")
+                        canvas_copy[gy][gx - 1] = 6
+
+                    if dy == 1: # im moving south 
+                        print("going southj")
+                        canvas_copy[gy + 1][gx] = 6
+                    elif dy == -1: # im moving north
+                        print("going north")
+                        canvas_copy[gy - 1][gx] = 6
+
                 os.system("clear")
                 dmaze_display(canvas_copy, theme)
                 print("Solution shown")

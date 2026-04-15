@@ -179,6 +179,11 @@ class MazeGenerator:
     def convert_to_canvas(self) -> list[list[int]]:
         CV_WALL: int = 1
         CV_PATH: int = 0
+        CV_ENTRY: int = 2
+        CV_EXIT: int = 3
+        CV_42BG: int = 4
+        CV_42WALL: int = 5
+        CV_SOL: int = 6
 
         w: int = self.width
         h: int = self.height
@@ -217,9 +222,9 @@ class MazeGenerator:
                             canvas[gy + dy][gx + dx] = 4
 
         ex, ey = self.entry
-        canvas[2 * ey + 1][2 * ex + 1] = 2
+        canvas[2 * ey + 1][2 * ex + 1] = CV_ENTRY
 
         xx, xy = self.exit
-        canvas[2 * xy + 1][2 * xx + 1] = 3
+        canvas[2 * xy + 1][2 * xx + 1] = CV_EXIT
 
         return canvas

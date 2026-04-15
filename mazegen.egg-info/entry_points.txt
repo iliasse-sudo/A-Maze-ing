@@ -1,2 +1,0 @@
-[console_scripts]
-maze-run = maze.__main__:main
