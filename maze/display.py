@@ -42,7 +42,7 @@ def dmaze_display(canvas: list[list[int]], theme_index: int) -> None:
                 line += entry_e
         print(line)
 
-def show_solution(path, gen, show):
+def toggle_solution(path, gen, show):
 
     color = 6 if show else 0
 
@@ -57,7 +57,6 @@ def show_solution(path, gen, show):
 
         gx = 2 * px + 1
         gy = 2 * py + 1
-
 
         if gen.canvas[gy][gx] not in (2, 3):
             gen.canvas[gy][gx] = color

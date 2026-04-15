@@ -6,7 +6,7 @@ import time
 from maze.config_parser import config_parser
 from maze.generator import MazeGenerator
 from maze.solver import bfs_solve
-from maze.display import dmaze_display, THEMES, show_solution
+from maze.display import dmaze_display, THEMES, toggle_solution
 from maze.writer import write_output as _write_output
 
 
@@ -58,14 +58,12 @@ def main() -> None:
         if choice == "1":
             print("\nRegenerating...")
             settings.pop("SEED", None)
-            if solution_shown == False:
-                solution_shown = False
 
             gen = MazeGenerator(settings)
             gen.generate()
             path = bfs_solve(gen.logic, settings)
             if solution_shown == True:
-                show_solution(path, gen, True)
+                toggle_solution(path, gen, True)
             _write_output(settings, gen.logic, path)
 
             os.system("clear")
@@ -75,13 +73,13 @@ def main() -> None:
             if solution_shown:
                 solution_shown = False
                 os.system("clear")
-                show_solution(path, gen, False)
+                toggle_solution(path, gen, False)
                 dmaze_display(gen.canvas, theme)
                 print("Solution hidden")
             else:
                 solution_shown = True
                 os.system("clear")
-                show_solution(path, gen, True)
+                toggle_solution(path, gen, True)
                 dmaze_display(gen.canvas, theme)
                 print("Solution shown")
 
@@ -91,7 +89,7 @@ def main() -> None:
             os.system("clear")
             dmaze_display(gen.canvas, theme)
             print(f"Theme changed to {theme}")
-            solution_shown = False
+
 
         elif choice == "4":
             print("Goodbye!")
