@@ -1,6 +1,7 @@
 import os
 import sys
 import random
+import time
 
 from maze.config_parser import config_parser
 from maze.generator import MazeGenerator
@@ -22,8 +23,7 @@ def main() -> None:
         print(f"Config error: {err}")
         sys.exit(1)
 
-    if settings["WIDTH"] < 10 or settings["HEIGHT"] < 8:
-        print("Warning: Maze too small for '42' pattern.")
+    
 
     gen = MazeGenerator(settings)
 
@@ -51,7 +51,6 @@ def main() -> None:
         print("| 3. Change color    |")
         print("| 4. Quit            |")
         print("+--------------------+")
-
         try:
             choice = input("Enter choice (1-4): ").strip()
         except (EOFError, KeyboardInterrupt):

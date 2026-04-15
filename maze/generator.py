@@ -161,7 +161,10 @@ class MazeGenerator:
             raise ValueError(
                 "neither entry nor exit can be within the 42 squares"
                 )
-
+        import time
+        if not blocked or self.width < 10 or self.height < 8:
+            print("maze too small to display 42 pattern and youre gay")
+            time.sleep(2)
         self.logic = generate_maze_dfs(
             self.width, self.height,
             self.entry, blocked, seed=self.seed
