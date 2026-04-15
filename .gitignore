@@ -1,20 +1,14 @@
-# Environment files — never commit real secrets
+# Environment files
 .env
 *.env
 
 # Virtual environments
-matrix_env/
 .venv/
 venv/
 env/
 
 # Python cache
 __pycache__/
-*.py[cod]
-*.pyo
-
-# optional poetry lock file
-# poetry.lock
 
 # mypy cache
 .mypy_cache/
