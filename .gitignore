@@ -13,9 +13,6 @@ __pycache__/
 *.py[cod]
 *.pyo
 
-# Generated output
-matrix_analysis.png
-
 # optional poetry lock file
 # poetry.lock
 
