@@ -119,6 +119,7 @@ def main() -> None:
             os.system("clear")
             dmaze_display(gen.canvas, theme)
             print(f"Theme changed to {theme}")
+            solution_shown = False
 
         elif choice == "4":
             print("Goodbye!")
