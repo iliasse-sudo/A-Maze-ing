@@ -164,18 +164,19 @@ class MazeGenerator:
         self.seed = config.get("SEED")
         self.logic: list[list[int]] = []
         self.canvas: list[list[int]] = []
+        self.show_42 = True
 
     def generate(self) -> None:
         blocked = compute_42_cells(self.width, self.height)
+
+        if not blocked:
+            self.show_42 = False
+
         if self.entry in blocked or self.exit in blocked:
             raise ValueError(
                 "neither entry nor exit can be within the 42 squares"
             )
-        import time
 
-        if not blocked or self.width < 10 or self.height < 8:
-            print("maze too small to display 42 pattern and youre gay")
-            time.sleep(2)
         self.logic = generate_maze_dfs(
             self.width, self.height, self.entry, blocked, seed=self.seed
         )
@@ -192,17 +193,17 @@ class MazeGenerator:
         CV_ENTRY: int = 2
         CV_EXIT: int = 3
 
-        w: int = self.width
-        h: int = self.height
-        cw: int = 2 * w + 1
-        ch: int = 2 * h + 1
+        width: int = self.width
+        height: int = self.height
+        cw: int = 2 * width + 1
+        ch: int = 2 * height + 1
 
         canvas: list[list[int]] = [
             [CV_WALL for _ in range(cw)] for _ in range(ch)
         ]
 
-        for logy in range(h):
-            for logx in range(w):
+        for logy in range(height):
+            for logx in range(width):
                 cell: int = self.logic[logy][logx]
                 gx: int = 2 * logx + 1
                 gy: int = 2 * logy + 1
@@ -218,8 +219,8 @@ class MazeGenerator:
                 if not (cell & S):
                     canvas[gy + 1][gx] = CV_PATH
 
-        for logy in range(h):
-            for logx in range(w):
+        for logy in range(height):
+            for logx in range(width):
                 if self.logic[logy][logx] == ALL_WALLS:
                     gx = 2 * logx + 1
                     gy = 2 * logy + 1

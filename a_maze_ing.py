@@ -1,7 +1,6 @@
 import os
 import sys
 import random
-import time
 
 from maze.config_parser import config_parser
 from maze.generator import MazeGenerator
@@ -41,6 +40,8 @@ def main() -> None:
 
     running = True
     while running:
+        if not gen.show_42:
+            print("\nthe maze is too small to show the 42 pattern.")
         print("\n+--------------------+")
         print("| A-Maze-Ing Menu    |")
         print("+--------------------+")
