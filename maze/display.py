@@ -41,3 +41,37 @@ def dmaze_display(canvas: list[list[int]], theme_index: int) -> None:
             elif cell == CV_SOL:
                 line += entry_e
         print(line)
+
+def show_solution(path, gen, show):
+
+    color = 6 if show else 0
+
+    for i in range(len(path) - 1):
+        cx, cy = path[i + 1]
+        px, py = path[i]
+
+        print(cx, cy, px, py)
+
+        dx = cx - px
+        dy = cy - py
+
+        gx = 2 * px + 1
+        gy = 2 * py + 1
+
+
+        if gen.canvas[gy][gx] not in (2, 3):
+            gen.canvas[gy][gx] = color
+
+        if dx == 1:  # im moving east
+            print("going east")
+            gen.canvas[gy][gx + 1] = color
+        elif dx == -1:  # im moving west
+            print("going west")
+            gen.canvas[gy][gx - 1] = color
+
+        if dy == 1:  # im moving south
+            print("going southj")
+            gen.canvas[gy + 1][gx] = color
+        elif dy == -1:  # im moving north
+            print("going north")
+            gen.canvas[gy - 1][gx] = color
