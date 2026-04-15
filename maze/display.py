@@ -38,4 +38,4 @@ def dmaze_display(canvas: list[list[int]], theme_index: int) -> None:
                 line += wall_e
             elif cell == CV_SOL:
                 line += entry_e
-        print("///", line)
+        print(line)
