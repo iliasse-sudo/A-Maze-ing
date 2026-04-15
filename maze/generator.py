@@ -11,6 +11,7 @@ DX: dict[int, int] = {E: 1, W: -1, N: 0, S: 0}
 DY: dict[int, int] = {E: 0, W: 0, N: -1, S: 1}
 OPP: dict[int, int] = {N: S, S: N, E: W, W: E}
 
+
 def compute_42_cells(width: int, height: int) -> list[tuple[int, int]]:
     MIN_W, MIN_H = 10, 8
     if width < MIN_W or height < MIN_H:
@@ -20,22 +21,32 @@ def compute_42_cells(width: int, height: int) -> list[tuple[int, int]]:
     cy: int = height // 2
 
     forty_two_offsets: list[tuple[int, int]] = [
-        (cx - 3, cy - 2), (cx - 1, cy - 2),
-        (cx - 3, cy - 1), (cx - 1, cy - 1),
-        (cx - 3, cy), (cx - 2, cy), (cx - 1, cy),
+        (cx - 3, cy - 2),
+        (cx - 1, cy - 2),
+        (cx - 3, cy - 1),
+        (cx - 1, cy - 1),
+        (cx - 3, cy),
+        (cx - 2, cy),
+        (cx - 1, cy),
         (cx - 1, cy + 1),
-        (cx - 1, cy + 2), #4
-
-        (cx + 1, cy - 2), (cx + 2, cy - 2), (cx + 3, cy - 2),
+        (cx - 1, cy + 2),  # 4
+        (cx + 1, cy - 2),
+        (cx + 2, cy - 2),
+        (cx + 3, cy - 2),
         (cx + 3, cy - 1),
-        (cx + 1, cy), (cx + 2, cy), (cx + 3, cy),
+        (cx + 1, cy),
+        (cx + 2, cy),
+        (cx + 3, cy),
         (cx + 1, cy + 1),
-        (cx + 1, cy + 2), (cx + 2, cy + 2), (cx + 3, cy + 2),
-        #2
+        (cx + 1, cy + 2),
+        (cx + 2, cy + 2),
+        (cx + 3, cy + 2),
+        # 2
     ]
 
     valid_cells = [
-        (x, y) for (x, y) in forty_two_offsets
+        (x, y)
+        for (x, y) in forty_two_offsets
         if 0 <= x < width and 0 <= y < height
     ]
 
@@ -55,15 +66,13 @@ def generate_maze_dfs(
         random.seed()
 
     maze: list[list[int]] = [
-        [ALL_WALLS for _ in range(width)]
-        for _ in range(height)
+        [ALL_WALLS for _ in range(width)] for _ in range(height)
     ]
 
     visited: list[list[bool]] = [
-        [False for _ in range(width)]
-        for _ in range(height)
+        [False for _ in range(width)] for _ in range(height)
     ]
-    for bx, by in blocked_cells: #nice
+    for bx, by in blocked_cells:  # nice
         visited[by][bx] = True
         maze[by][bx] = ALL_WALLS
 
@@ -112,8 +121,9 @@ def make_imperfect(
     h: int = len(canvas)
     w: int = len(canvas[0])
 
-    breakable: list[tuple[int, int, str, tuple[int, int], tuple[int, int]]] \
-        = []
+    breakable: list[tuple[int, int, str, tuple[int, int], tuple[int, int]]] = (
+        []
+    )
 
     for cy in range(1, h - 1):
         for cx in range(1, w - 1):
@@ -160,14 +170,14 @@ class MazeGenerator:
         if self.entry in blocked or self.exit in blocked:
             raise ValueError(
                 "neither entry nor exit can be within the 42 squares"
-                )
+            )
         import time
+
         if not blocked or self.width < 10 or self.height < 8:
             print("maze too small to display 42 pattern and youre gay")
             time.sleep(2)
         self.logic = generate_maze_dfs(
-            self.width, self.height,
-            self.entry, blocked, seed=self.seed
+            self.width, self.height, self.entry, blocked, seed=self.seed
         )
 
         if not self.perfect:
@@ -181,9 +191,6 @@ class MazeGenerator:
         CV_PATH: int = 0
         CV_ENTRY: int = 2
         CV_EXIT: int = 3
-        CV_42BG: int = 4
-        CV_42WALL: int = 5
-        CV_SOL: int = 6
 
         w: int = self.width
         h: int = self.height
@@ -191,8 +198,7 @@ class MazeGenerator:
         ch: int = 2 * h + 1
 
         canvas: list[list[int]] = [
-            [CV_WALL for _ in range(cw)]
-            for _ in range(ch)
+            [CV_WALL for _ in range(cw)] for _ in range(ch)
         ]
 
         for logy in range(h):

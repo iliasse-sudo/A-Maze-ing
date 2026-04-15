@@ -6,15 +6,17 @@ CV_42BG: int = 4
 CV_42WALL: int = 5
 CV_SOL: int = 6
 
+
+TEAL_GREEN = "\x1b[48;2;0;109;91m \x1b[0m\x1b[48;2;0;109;91m \x1b[0m"
+
 THEMES: list[tuple[str, str, str]] = [
     ("\033[31m▓▓\033[0m", "\033[34m▓▓\033[0m", "XX"),
     ("\033[32m▓▓\033[0m", "\033[35m▓▓\033[0m", "XX"),
-    ("\033[33m▓▓\033[0m", "\033[36m▓▓\033[0m", "XX"),
-
+    ("\033[33m▓▓\033[0m", TEAL_GREEN, "XX"),
 ]
 
 EMPTY_PATH: str = "  "
-SOL: str = "▓▓"
+SOL: str = "ZZ"
 _42_PATTERN: str = "\033[36m▓▓\033[0m"
 
 
@@ -29,7 +31,7 @@ def dmaze_display(canvas: list[list[int]], theme_index: int) -> None:
             elif cell == CV_WALL:
                 line += wall_e
             elif cell == CV_ENTRY:
-                line += entry_e
+                line += "EE"
             elif cell == CV_EXIT:
                 line += exit_e
             elif cell == CV_42BG:

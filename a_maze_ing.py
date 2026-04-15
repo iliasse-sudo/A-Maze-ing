@@ -23,8 +23,6 @@ def main() -> None:
         print(f"Config error: {err}")
         sys.exit(1)
 
-    
-
     gen = MazeGenerator(settings)
 
     try:
@@ -95,17 +93,17 @@ def main() -> None:
                     if canvas_copy[gy][gx] not in (2, 3):
                         canvas_copy[gy][gx] = 6
 
-                    if dx == 1: # im moving east
+                    if dx == 1:  # im moving east
                         print("going east")
                         canvas_copy[gy][gx + 1] = 6
-                    elif dx == -1: # im moving west
+                    elif dx == -1:  # im moving west
                         print("going west")
                         canvas_copy[gy][gx - 1] = 6
 
-                    if dy == 1: # im moving south 
+                    if dy == 1:  # im moving south
                         print("going southj")
                         canvas_copy[gy + 1][gx] = 6
-                    elif dy == -1: # im moving north
+                    elif dy == -1:  # im moving north
                         print("going north")
                         canvas_copy[gy - 1][gx] = 6
 
@@ -135,4 +133,3 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         print(e)
-    
