@@ -14,14 +14,28 @@ CV_SOL: int = 6
 
 
 TEAL_GREEN = "\x1b[48;2;0;109;91m \x1b[0m\x1b[48;2;0;109;91m \x1b[0m"
-BLUE = "\x1b[48;2;45;51;107m" 
-WHITE = "\x1b[38;2;255;242;242m"
+BLUE = "\x1b[48;2;45;51;107m \x1b[0m\x1b[48;2;45;51;107m \x1b[0m"
+WHITE = "\x1b[48;2;255;242;242m \x1b[0m\x1b[48;2;255;242;242m \x1b[0m"
+DARK_BLUE = "\033[48;5;17m▓▓\033[0m"
+ROSE_VALE = "\033[48;5;131m  \033[0m"
+YELLOWISH_WHITE = "\033[48;5;230m  \033[0m"
+INDIGO = "\x1b[48;2;22;64;77m \x1b[0m\x1b[48;2;22;64;77m \x1b[0m" #NAVY BLUE?
+CREAMY_WHITE = "\x1b[48;2;240;234;214m \x1b[0m\x1b[48;2;240;234;214m \x1b[0m"
+MUSTARD_YELLOW = "\x1b[48;2;212;160;23m \x1b[0m\x1b[48;2;212;160;23m \x1b[0m"
+GREEN = "\033[32m▓▓\033[0m"
+GREY = "\033[37m▓▓\033[0m"
+RED = "\033[31m▓▓\033[0m"
+CRIMSON_RED = "\x1b[48;2;220;20;60m \x1b[0m\x1b[48;2;220;20;60m \x1b[0m"
+
 
 THEMES: list[tuple[str, str, str]] = [
-    ("\033[31m▓▓\033[0m", "\033[34m▓▓\033[0m", "XX"),
-    ("\033[32m▓▓\033[0m", "\033[37\m▓▓\033[0m", "XX"),
-    ("\033[33m▓▓\033[0m", TEAL_GREEN, "XX"),
-    ("\033[33m▓▓\033[0m", TEAL_GREEN, "XX")
+    (RED, MUSTARD_YELLOW, "XX"),
+    (GREEN, GREY, "XX"),
+    (DARK_BLUE, TEAL_GREEN, "XX"),
+    (BLUE, WHITE, "XX"),
+    (INDIGO, CREAMY_WHITE, "XX"),
+    (ROSE_VALE, YELLOWISH_WHITE, "XX"),
+    (CRIMSON_RED, CREAMY_WHITE, "XX")
 ]
 
 EMPTY_PATH: str = "  "
@@ -59,7 +73,7 @@ def toggle_solution(
     color = 6 if show else 0
     wall_change_interval = 30
 
-    theme_index = random.randint(0, 2)
+    theme_index = random.randint(0, len(THEMES) -1)
 
     print("\033[?25l", end="", flush=True)
     for i in range(len(path) - 1):
@@ -85,7 +99,7 @@ def toggle_solution(
         elif dy == -1:  # im moving north
             gen.canvas[gy - 1][gx] = color
         if i > 0 and i % wall_change_interval == 0:
-            theme_index = random.randint(0, len(THEMES))
+            theme_index = random.randint(0, len(THEMES) -1)
         print("\033[H", end="")
         dmaze_display(gen.canvas, theme_index)
         time.sleep(0.005)
