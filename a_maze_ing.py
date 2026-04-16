@@ -4,9 +4,9 @@ import random
 import time
 
 from maze.config_parser import config_parser
-from maze.generator import MazeGenerator
+from maze.generator import MazeGenerator #, compute_42_cells
 from maze.solver import bfs_solve
-from maze.display import dmaze_display, THEMES, toggle_solution
+from maze.display import dmaze_display, THEMES, toggle_solution, animate_generation
 from maze.writer import write_output as _write_output
 
 
@@ -41,16 +41,17 @@ def main() -> None:
 
     running = True
     while running:
-        print("\n+--------------------+")
-        print("| A-Maze-Ing Menu    |")
-        print("+--------------------+")
-        print("| 1. Re-generate     |")
-        print("| 2. Show/Hide       |")
-        print("| 3. Change color    |")
-        print("| 4. Quit            |")
-        print("+--------------------+")
+        print("\n+-----------------------+")
+        print("| A-Maze-Ing Menu       |")
+        print("+-----------------------+")
+        print("| 1. Re-generate        |")
+        print("| 2. Show/Hide          |")
+        print("| 3. Change color       |")
+        print("| 4. Animate Generation |")
+        print("| 5. Quit               |")
+        print("+-----------------------+")
         try:
-            choice = input("Enter choice (1-4): ").strip()
+            choice = input("Enter choice (1-5): ").strip()
         except (EOFError, KeyboardInterrupt):
             print("\nInterrupted - goodbye!")
             break
@@ -92,14 +93,19 @@ def main() -> None:
 
 
         elif choice == "4":
+            try:
+                animate_generation(gen, theme)
+            except KeyboardInterrupt:
+                continue
+
+        elif choice == "5":
             print("Goodbye!")
             running = False
 
         else:
             os.system("clear")
             dmaze_display(gen.canvas, theme)
-            print("Invalid choice. Enter 1, 2, 3, or 4.")
-
+            print("Invalid choice. Enter 1, 2, 3, 4 or 5.")
 
 if __name__ == "__main__":
     try:

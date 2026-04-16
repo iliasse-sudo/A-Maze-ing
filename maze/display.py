@@ -1,3 +1,9 @@
+import os
+import time
+
+from maze.generator import MazeGenerator, compute_42_cells
+
+
 CV_WALL: int = 1
 CV_PATH: int = 0
 CV_ENTRY: int = 2
@@ -74,3 +80,71 @@ def toggle_solution(path, gen, show):
         elif dy == -1:  # im moving north
             print("going north")
             gen.canvas[gy - 1][gx] = color
+
+def animate_generation(gen: MazeGenerator, theme: int) -> None:
+    print("\033[?25l", end="", flush=True)
+    os.system("clear")
+    blocked_cells = compute_42_cells(gen.width, gen.height)
+    blank_canvas = [[1 for _ in range(gen.width * 2 + 1)] for _ in range(gen.height * 2 + 1)]
+    for cx, cy in blocked_cells:
+        cv_x = 2 * cx + 1
+        cv_y = 2 * cy + 1
+        blank_canvas[cv_y][cv_x] = 4
+    for logy in range(gen.height):
+        for logx in range(gen.width):
+            if gen.logic[logy][logx] == 15:
+                gx = 2 * logx + 1
+                gy = 2 * logy + 1
+                for dy in (-1, 0, 1):
+                    for dx in (-1, 0, 1):
+                        blank_canvas[gy + dy][gx + dx] = 4
+    entry_x, entry_y = gen.entry
+    exit_x, exit_y = gen.exit
+    blank_canvas[2 * entry_y + 1][2 * entry_x + 1] = 2
+    blank_canvas[2 * exit_y + 1][2 * exit_x + 1] = 3
+    dmaze_display(blank_canvas, theme)
+    time.sleep(0.3)
+    path_stack = []
+    for x, y in gen.generation_stack:
+        cv_x = 2 * x + 1
+        cv_y = 2 * y + 1 
+        blank_canvas[cv_y][cv_x] = 0
+        if not path_stack:
+            path_stack.append((x, y))
+        else:
+            while path_stack:
+                px, py = path_stack[-1]
+                if abs(x - px) + abs(y - py) == 1:
+                    break
+                path_stack.pop()
+            px, py = path_stack[-1]
+            pcv_x = 2 * px + 1
+            pcv_y = 2 * py + 1
+            wall_x = (cv_x + pcv_x) // 2
+            wall_y = (cv_y + pcv_y) // 2
+            blank_canvas[wall_y][wall_x] = 0 
+            path_stack.append((x, y))
+            print("\033[H", end="")
+        blank_canvas[2 * entry_y + 1][2 * entry_x + 1] = 2
+        blank_canvas[2 * exit_y + 1][2 * exit_x + 1] = 3
+        try:
+            print("\033[H", end="")
+            dmaze_display(blank_canvas, theme)
+        except KeyboardInterrupt:
+            print("\033[H", end="")
+            dmaze_display(blank_canvas, theme)
+            print("\033[?25h", end="", flush=True)
+            input("Generation paused. Press Enter to continue...")
+            print("\033[?25l", end="", flush=True)
+            os.system("clear")
+        try:
+            time.sleep(0.005)
+        except KeyboardInterrupt:
+            print("\033[H", end="")
+            dmaze_display(blank_canvas, theme)
+            print("\033[?25h", end="", flush=True)
+            input("Generation paused. Press Enter to continue...")
+            print("\033[?25l", end="", flush=True)
+            os.system("clear")
+            continue
+    print("\033[?25h", end="", flush=True)
