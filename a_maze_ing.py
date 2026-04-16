@@ -16,6 +16,7 @@ from maze.writer import write_output as _write_output
 
 
 def main() -> None:
+    """Main entry point for the maze generator and solver."""
     if len(sys.argv) < 2:
         print("Usage: python3 a_maze_ing.py <config_file>")
         sys.exit(1)
