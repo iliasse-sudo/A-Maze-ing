@@ -29,17 +29,16 @@ CRIMSON_RED = "\x1b[48;2;220;20;60m \x1b[0m\x1b[48;2;220;20;60m \x1b[0m"
 
 
 THEMES: list[tuple[str, str, str]] = [
-    (RED, MUSTARD_YELLOW, "XX"),
-    (GREEN, GREY, "XX"),
-    (DARK_BLUE, TEAL_GREEN, "XX"),
-    (BLUE, WHITE, "XX"),
-    (INDIGO, CREAMY_WHITE, "XX"),
-    (ROSE_VALE, YELLOWISH_WHITE, "XX"),
-    (CRIMSON_RED, CREAMY_WHITE, "XX")
+    (RED, MUSTARD_YELLOW, "🚪"),
+    (GREEN, GREY, "🚪"),
+    (DARK_BLUE, TEAL_GREEN, "🚪"),
+    (BLUE, WHITE, "🚪"),
+    (INDIGO, CREAMY_WHITE, "🚪"),
+    (ROSE_VALE, YELLOWISH_WHITE, "🚪"),
+    (CRIMSON_RED, CREAMY_WHITE, "🚪")
 ]
 
 EMPTY_PATH: str = "  "
-SOL: str = "ZZ"
 _42_PATTERN: str = "\033[36m▓▓\033[0m"
 
 
@@ -54,7 +53,7 @@ def dmaze_display(canvas: list[list[int]], theme_index: int) -> None:
             elif cell == CV_WALL:
                 line += wall_e
             elif cell == CV_ENTRY:
-                line += "EE"
+                line += "🏃"
             elif cell == CV_EXIT:
                 line += exit_e
             elif cell == CV_42BG:
