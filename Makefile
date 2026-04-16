@@ -32,14 +32,6 @@ lint:
 	mypy maze/ a_maze_ing.py --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
 
 lint-strict:
-	flake8 . --strict
-	mypy maze/ a_maze_ing.py --strict
+	flake8 . && mypy maze/ a_maze_ing.py --strict
 
-test:
-	python3 $(MAIN) $(CONFIG) < /dev/null
-
-install-test: install
-	maze-run $(CONFIG) < /dev/null
-
-
-.PHONY: all build install clean test help run run-installed run-from-package debug lint lint-strict install-package install-test%  
+.PHONY: build install clean run run-installed debug lint lint-strict install-package%
