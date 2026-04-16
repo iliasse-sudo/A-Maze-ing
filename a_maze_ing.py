@@ -115,9 +115,9 @@ def main() -> None:
             try:
                 animate_generation(gen, theme)
             except (KeyboardInterrupt, EOFError):
-                # heigth = (gen.width * 2) + 1
+                heigth = (gen.height * 2) + 2
                 print("\033[?25h", end="", flush=True)
-                print("\033[38;0f", end="")
+                print(f"\033[{heigth};0f", end="")
                 print("                                     " +
                       "                                    ", end="")
                 continue

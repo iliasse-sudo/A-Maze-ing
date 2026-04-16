@@ -34,4 +34,4 @@ lint:
 lint-strict:
 	flake8 && mypy . --strict
 
-.PHONY: all build clean run run-installed debug lint lint-strict install-package
+.PHONY: build install clean run run-installed debug lint lint-strict install-package
