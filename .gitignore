@@ -17,3 +17,6 @@ __pycache__/
 .vscode/
 .nvim/
 .vim/
+
+# output_file
+maze.txt
