@@ -134,7 +134,7 @@ def main() -> None:
                     if solution_shown:
                         toggle_solution(path, gen, True)
                     print("\033[H", end="")
-                    # dmaze_display(gen.canvas, theme)
+                    dmaze_display(gen.canvas, theme)
                     time.sleep(0.5)
             except KeyboardInterrupt:
                 os.system("clear")
