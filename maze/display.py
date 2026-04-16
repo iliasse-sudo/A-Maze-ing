@@ -56,8 +56,8 @@ def toggle_solution(path, gen, show):
 
     theme_index = random.randint(0, 2)
 
+    print("\033[?25l", end="", flush=True)
     for i in range(len(path) - 1):
-        os.system("clear")
         cx, cy = path[i + 1]
         px, py = path[i]
 
@@ -81,8 +81,10 @@ def toggle_solution(path, gen, show):
             gen.canvas[gy - 1][gx] = color
         if i > 0 and i % wall_change_interval == 0:
             theme_index = random.randint(0,2)
+        print("\033[H", end="")
         dmaze_display(gen.canvas, theme_index)
         time.sleep(.005)
+    print("\033[?25h", end="", flush=True)
 
 def animate_generation(gen: MazeGenerator, theme: int) -> None:
     print("\033[?25l", end="", flush=True)

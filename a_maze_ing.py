@@ -4,7 +4,7 @@ import random
 import time
 
 from maze.config_parser import config_parser
-from maze.generator import MazeGenerator #, compute_42_cells
+from maze.generator import MazeGenerator
 from maze.solver import bfs_solve
 from maze.display import dmaze_display, THEMES, toggle_solution, animate_generation
 from maze.writer import write_output as _write_output
@@ -61,7 +61,8 @@ def main() -> None:
             break
 
         if choice == "1":
-            print("\nRegenerating...")
+            print("\033[?25l", end="", flush=True)
+            os.system("clear")
             settings.pop("SEED", None)
 
             gen = MazeGenerator(settings)
@@ -71,25 +72,28 @@ def main() -> None:
                 toggle_solution(path, gen, True)
             _write_output(settings, gen.logic, path)
 
-            os.system("clear")
+            print("\033[H", end="")
             dmaze_display(gen.canvas, theme)
+            print("\033[?25h", end="", flush=True)
 
         elif choice == "2":
+            os.system("clear")
+            print("\033[?25l", end="", flush=True)
             try:
                 if solution_shown:
                     solution_shown = False
-                    os.system("clear")
+                    print("\033[H", end="")
                     toggle_solution(path, gen, False)
-                    # dmaze_display(gen.canvas, theme)
                     print("Solution hidden")
                 else:
                     solution_shown = True
-                    os.system("clear")
+                    print("\033[H", end="")
                     toggle_solution(path, gen, True)
-                    # dmaze_display(gen.canvas, theme)
                     print("Solution shown")
             except KeyboardInterrupt:
                 print("\nBack to menu")
+            print("\033[?25h", end="", flush=True)
+
         elif choice == "3":
             other_themes = [i for i in range(len(THEMES)) if i != theme]
             theme = random.choice(other_themes)
@@ -105,6 +109,7 @@ def main() -> None:
 
         elif choice == "5":
             try:
+                print("\033[?25l", end="", flush=True)
                 while True:
                     settings.pop("SEED", None)
                     gen = MazeGenerator(settings)
@@ -112,18 +117,21 @@ def main() -> None:
                     path = bfs_solve(gen.logic, settings)
                     if solution_shown:
                         toggle_solution(path, gen, True)
-                    os.system("clear")
+                    print("\033[H", end="")
                     dmaze_display(gen.canvas, theme)
                     time.sleep(0.5)
             except KeyboardInterrupt:
-                print("\nYou stopped the party")
+                os.system("clear")
+                dmaze_display(gen.canvas, theme)
+                print("\nYou have escaped the Infinite Tsukuyomi.")
+            print("\033[?25h", end="", flush=True)
 
         elif choice == "6":
             print("Goodbye!")
             running = False
 
         else:
-            os.system("clear")
+            print("\033[H", end="")
             dmaze_display(gen.canvas, theme)
             print("Invalid choice. Please enter a valid option.")
 
