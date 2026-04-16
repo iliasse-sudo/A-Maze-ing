@@ -13,6 +13,8 @@ def config_parser(filename: str) -> dict[str, Any]:
                     raw[key.strip().upper()] = value.strip()
     except FileNotFoundError:
         raise FileNotFoundError(f"Config file '{filename}' not found!")
+    except PermissionError:
+        raise PermissionError(f"Permission denied reading '{filename}'!")
 
     mandatory = ["WIDTH", "HEIGHT", "ENTRY", "EXIT", "PERFECT", "OUTPUT_FILE"]
     for key in mandatory:
@@ -54,16 +56,14 @@ def config_parser(filename: str) -> dict[str, Any]:
         raise ValueError("ENTRY and EXIT cannot be the same cell!")
 
     BLOCKED = [
-        "config.txt",
-        "README.md",
-        "pyproject.toml",
-        "setup.py",
-        "a_maze_ing.py",
-        "Makefile",
-        ".gitignore",
+        "config.txt", "README.md", "pyproject.toml", "setup.py",
+        "a_maze_ing.py", "Makefile", ".gitignore"
     ]
 
     output_file = raw["OUTPUT_FILE"].strip()
+
+    if output_file.startswith("/") or ".." in output_file:
+        raise ValueError("Invalid OUTPUT_FILE: path traversal not allowed")
 
     if output_file in BLOCKED:
         raise ValueError(f"OUTPUT_FILE '{output_file}' is protected")

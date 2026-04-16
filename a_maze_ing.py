@@ -24,7 +24,7 @@ def main() -> None:
 
     try:
         settings = config_parser(config_file)
-    except (FileNotFoundError, KeyError, ValueError) as err:
+    except (FileNotFoundError, KeyError, ValueError, PermissionError) as err:
         print(f"Config error: {err}")
         sys.exit(1)
 
@@ -36,7 +36,11 @@ def main() -> None:
         print(f"Error: {e}")
         sys.exit(1)
     path = bfs_solve(gen.logic, settings)
-    _write_output(settings, gen.logic, path)
+    try:
+        _write_output(settings, gen.logic, path)
+    except PermissionError as err:
+        print(f"Write error: {err}")
+        sys.exit(1)
 
     theme = random.randint(0, len(THEMES) - 1)
     solution_shown = False
