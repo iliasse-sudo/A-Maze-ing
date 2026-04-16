@@ -53,6 +53,18 @@ def config_parser(filename: str) -> dict[str, Any]:
     if entry == exit_pos:
         raise ValueError("ENTRY and EXIT cannot be the same cell!")
 
+    BLOCKED = [
+    "config.txt", "README.md", "pyproject.toml", 
+    "setup.py", "a_maze_ing.py", "Makefile", 
+    ".gitignore"
+]
+    
+    output_file = raw["OUTPUT_FILE"].strip()
+
+    if output_file in BLOCKED:
+        raise ValueError(f"OUTPUT_FILE '{output_file}' is protected")
+
+
     settings: dict[str, Any] = {
         "WIDTH": width,
         "HEIGHT": height,

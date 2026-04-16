@@ -41,17 +41,21 @@ def main() -> None:
 
     running = True
     while running:
-        print("\n+-----------------------+")
-        print("| A-Maze-Ing Menu       |")
-        print("+-----------------------+")
-        print("| 1. Re-generate        |")
-        print("| 2. Show/Hide          |")
-        print("| 3. Change color       |")
-        print("| 4. Animate Generation |")
-        print("| 5. Quit               |")
-        print("+-----------------------+")
+        if not gen.show_42:
+            print("\nthe maze is too small to show the 42 pattern.")
+        print("\n+--------------------------------------------+")
+        print("|                A-Maze-Ing Menu             |")
+        print("+--------------------------------------------+")
+        print("| 1. Re-generate                             |")
+        print("| 2. Show/Hide                               |")
+        print("| 3. Change color                            |")
+        print("| 4. Animate Generation                      |")
+        print("| 5. Domain Expansion - Infinite Tsukuyomi   |")
+        print("| 6. Quit                                    |")
+        print("+--------------------------------------------+")
+
         try:
-            choice = input("Enter choice (1-5): ").strip()
+            choice = input("Enter choice (1-6): ").strip()
         except (EOFError, KeyboardInterrupt):
             print("\nInterrupted - goodbye!")
             break
@@ -71,27 +75,28 @@ def main() -> None:
             dmaze_display(gen.canvas, theme)
 
         elif choice == "2":
-            if solution_shown:
-                solution_shown = False
-                os.system("clear")
-                toggle_solution(path, gen, False)
-                dmaze_display(gen.canvas, theme)
-                print("Solution hidden")
-            else:
-                solution_shown = True
-                os.system("clear")
-                toggle_solution(path, gen, True)
-                dmaze_display(gen.canvas, theme)
-                print("Solution shown")
-
+            try:
+                if solution_shown:
+                    solution_shown = False
+                    os.system("clear")
+                    toggle_solution(path, gen, False)
+                    # dmaze_display(gen.canvas, theme)
+                    print("Solution hidden")
+                else:
+                    solution_shown = True
+                    os.system("clear")
+                    toggle_solution(path, gen, True)
+                    # dmaze_display(gen.canvas, theme)
+                    print("Solution shown")
+            except KeyboardInterrupt:
+                print("\nBack to menu")
         elif choice == "3":
             other_themes = [i for i in range(len(THEMES)) if i != theme]
             theme = random.choice(other_themes)
             os.system("clear")
             dmaze_display(gen.canvas, theme)
             print(f"Theme changed to {theme}")
-
-
+        
         elif choice == "4":
             try:
                 animate_generation(gen, theme)
@@ -99,13 +104,28 @@ def main() -> None:
                 continue
 
         elif choice == "5":
+            try:
+                while True:
+                    settings.pop("SEED", None)
+                    gen = MazeGenerator(settings)
+                    gen.generate()
+                    path = bfs_solve(gen.logic, settings)
+                    if solution_shown:
+                        toggle_solution(path, gen, True)
+                    os.system("clear")
+                    dmaze_display(gen.canvas, theme)
+                    time.sleep(0.5)
+            except KeyboardInterrupt:
+                print("\nYou stopped the party")
+
+        elif choice == "6":
             print("Goodbye!")
             running = False
 
         else:
             os.system("clear")
             dmaze_display(gen.canvas, theme)
-            print("Invalid choice. Enter 1, 2, 3, 4 or 5.")
+            print("Invalid choice. Please enter a valid option.")
 
 if __name__ == "__main__":
     try:

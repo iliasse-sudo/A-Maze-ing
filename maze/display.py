@@ -1,5 +1,6 @@
 import os
 import time
+import random
 
 from maze.generator import MazeGenerator, compute_42_cells
 
@@ -51,12 +52,14 @@ def dmaze_display(canvas: list[list[int]], theme_index: int) -> None:
 def toggle_solution(path, gen, show):
 
     color = 6 if show else 0
+    wall_change_interval = 30
+
+    theme_index = random.randint(0, 2)
 
     for i in range(len(path) - 1):
+        os.system("clear")
         cx, cy = path[i + 1]
         px, py = path[i]
-
-        print(cx, cy, px, py)
 
         dx = cx - px
         dy = cy - py
@@ -68,18 +71,18 @@ def toggle_solution(path, gen, show):
             gen.canvas[gy][gx] = color
 
         if dx == 1:  # im moving east
-            print("going east")
             gen.canvas[gy][gx + 1] = color
         elif dx == -1:  # im moving west
-            print("going west")
             gen.canvas[gy][gx - 1] = color
 
         if dy == 1:  # im moving south
-            print("going southj")
             gen.canvas[gy + 1][gx] = color
         elif dy == -1:  # im moving north
-            print("going north")
             gen.canvas[gy - 1][gx] = color
+        if i > 0 and i % wall_change_interval == 0:
+            theme_index = random.randint(0,2)
+        dmaze_display(gen.canvas, theme_index)
+        time.sleep(.005)
 
 def animate_generation(gen: MazeGenerator, theme: int) -> None:
     print("\033[?25l", end="", flush=True)
