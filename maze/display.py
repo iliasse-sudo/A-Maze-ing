@@ -19,7 +19,7 @@ WHITE = "\x1b[48;2;255;242;242m \x1b[0m\x1b[48;2;255;242;242m \x1b[0m"
 DARK_BLUE = "\033[48;5;17m▓▓\033[0m"
 ROSE_VALE = "\033[48;5;131m  \033[0m"
 YELLOWISH_WHITE = "\033[48;5;230m  \033[0m"
-INDIGO = "\x1b[48;2;22;64;77m \x1b[0m\x1b[48;2;22;64;77m \x1b[0m" #NAVY BLUE?
+INDIGO = "\x1b[48;2;22;64;77m \x1b[0m\x1b[48;2;22;64;77m \x1b[0m"  # NAVY BLUE?
 CREAMY_WHITE = "\x1b[48;2;240;234;214m \x1b[0m\x1b[48;2;240;234;214m \x1b[0m"
 MUSTARD_YELLOW = "\x1b[48;2;212;160;23m \x1b[0m\x1b[48;2;212;160;23m \x1b[0m"
 GREEN = "\033[32m▓▓\033[0m"
@@ -73,7 +73,7 @@ def toggle_solution(
     color = 6 if show else 0
     wall_change_interval = 30
 
-    theme_index = random.randint(0, len(THEMES) -1)
+    theme_index = random.randint(0, len(THEMES) - 1)
 
     print("\033[?25l", end="", flush=True)
     for i in range(len(path) - 1):
@@ -99,11 +99,12 @@ def toggle_solution(
         elif dy == -1:  # im moving north
             gen.canvas[gy - 1][gx] = color
         if i > 0 and i % wall_change_interval == 0:
-            theme_index = random.randint(0, len(THEMES) -1)
+            theme_index = random.randint(0, len(THEMES) - 1)
         print("\033[H", end="")
         dmaze_display(gen.canvas, theme_index)
         time.sleep(0.005)
     print("\033[?25h", end="", flush=True)
+
 
 def animate_generation(gen: MazeGenerator, theme: int) -> None:
     print("\033[?25l", end="", flush=True)

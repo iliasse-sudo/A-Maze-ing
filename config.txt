@@ -4,5 +4,5 @@ HEIGHT=21
 ENTRY=0,0
 EXIT=51,20
 PERFECT=True
-OUTPUT_FILE=maze.txt
+OUTPUT_FILE=maze_output.txt
 # SEED=42

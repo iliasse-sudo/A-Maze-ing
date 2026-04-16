@@ -1,4 +1,13 @@
-*This project has been created as part of the 42 curriculum by itemlali, ibaya.*
+Metadata-Version: 2.4
+Name: mazegen
+Version: 1.0.0
+Summary: A maze generator and solver with emoji display
+Author-email: 42 Student <student@42.fr>
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
+*This project has been created as part of the 42 curriculum by itemlali, ibaya.
 
 ## Description
 
@@ -63,7 +72,7 @@ impassable cells that must be routed around.
 - Maze Generation Algorithm: https://en.wikipedia.org/wiki/Maze_generation_algorithm
 - BFS Pathfinding: https://www.redblobgames.com/pathfinding/a-star/introduction.html
 
-AI was used for code review and explanation of complex algorithms (BFS pathfinding, maze generation logic).
+AI was used for code review and explanation.
 
 ## Reusable Maze Module
 
@@ -80,25 +89,6 @@ path = bfs_solve(gen.logic, config)
 
 ## Team and Project Management
 
-### Roles
-- **itemlali**: Primary development, maze generator algorithm implementation
-- **ibaya**: Display system, configuration parsing, testing
-
-### Planning
-- Initial phase: Core maze generation using iterative DFS
-- Development phase: Added BFS solver, color themes, configuration system
-- Testing phase: Bug fixes, animation features, performance optimization
-
-### What worked well
-- Clean separation between modules (generator, solver, display, writer)
-- Iterative DFS avoided recursion limit issues
-- Color themes and animation added as bonus features
-
-### What could be improved
-- More maze algorithm options (Prim's, Kruskal's)
-- Better error messages for edge cases
-
-### Tools used
-- Python standard library only (no external dependencies)
-- Git for version control
-- flake8 and mypy for code quality
+- Roles: Shared student project
+- Planning: Standard 42 project workflow
+- Tools: Python standard library only
