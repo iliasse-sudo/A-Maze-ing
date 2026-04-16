@@ -3,12 +3,6 @@ WIDTH=52
 HEIGHT=21
 ENTRY=0,0
 EXIT=51,20
-<<<<<<< HEAD
 PERFECT=true
 OUTPUT_FILE=maze.txt
 # SEED=42
-=======
-PERFECT=True
-OUTPUT_FILE=maze_output.txt
-# SEED=42
->>>>>>> e81b5a44e13392d18651fe5aba043056780a93a7

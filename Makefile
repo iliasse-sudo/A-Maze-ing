@@ -3,14 +3,14 @@ CONFIG = config.txt
 CACHE = */__pycache__ .mypy_cache maze/__pycache__ *.egg-info
 
 build:
-	python3 -m build
+	python3 -m build && mv dist/*.whl .
 
 install:
 	python3 -m pip install -e .
 	python3 -m pip install flake8 mypy build
 
 install-package:
-	python3 -m pip install dist/mazegen-1.0.0-py3-none-any.whl
+	python3 -m pip install mazegen-1.0.0-py3-none-any.whl
 
 run:
 	python3 $(MAIN) $(CONFIG)
