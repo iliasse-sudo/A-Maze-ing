@@ -2,6 +2,20 @@ from typing import Any
 
 
 def config_parser(filename: str) -> dict[str, Any]:
+    """Parse a maze configuration file.
+
+    Args:
+        filename: Path to the configuration file.
+
+    Returns:
+        Dictionary containing parsed configuration values.
+
+    Raises:
+        FileNotFoundError: If config file doesn't exist.
+        PermissionError: If file cannot be read.
+        KeyError: If mandatory keys are missing.
+        ValueError: If config values are invalid.
+    """
     raw: dict[str, str] = {}
 
     try:
@@ -28,6 +42,18 @@ def config_parser(filename: str) -> dict[str, Any]:
     perfect_bool: bool = perfect_str == "True"
 
     def parse_coords(raw_str: str, label: str) -> tuple[int, int]:
+        """Parse coordinate string in 'x,y' format.
+
+        Args:
+            raw_str: String in format 'x,y'.
+            label: Label for error messages (e.g., 'ENTRY', 'EXIT').
+
+        Returns:
+            Tuple of (x, y) coordinates.
+
+        Raises:
+            ValueError: If format is invalid.
+        """
         try:
             parts = raw_str.split(",")
             if len(parts) != 2:

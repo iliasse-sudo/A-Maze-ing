@@ -13,6 +13,16 @@ OPP: dict[int, int] = {N: S, S: N, E: W, W: E}
 
 
 def compute_42_cells(width: int, height: int) -> list[tuple[int, int]]:
+    """Compute cells that form the '42' pattern obstacle.
+
+    Args:
+        width: Maze width in cells.
+        height: Maze height in cells.
+
+    Returns:
+        List of (x, y) coordinates for the 42 pattern cells.
+        Returns empty list if maze is too small.
+    """
     MIN_W, MIN_H = 10, 8
     if width < MIN_W or height < MIN_H:
         return []
@@ -60,6 +70,20 @@ def generate_maze_dfs(
     blocked_cells: list[tuple[int, int]],
     seed: int | None = None,
 ) -> tuple[list[list[int]], list[tuple[int, int]]]:
+    """Generate maze using iterative DFS (Recursive Backtracker).
+
+    Args:
+        width: Number of columns in the maze.
+        height: Number of rows in the maze.
+        entry: Starting position (x, y) for generation.
+        blocked_cells: List of cells that should remain walled (42 pattern).
+        seed: Optional random seed for reproducibility.
+
+    Returns:
+        Tuple of (maze grid, generation_stack) where maze grid is a 2D
+        list of wall/path bitmasks and generation_stack is the order
+        cells were visited.
+    """
     if seed is not None:
         random.seed(seed)
     else:
@@ -120,6 +144,13 @@ def make_imperfect(
     logic: list[list[int]],
     chance: float = 0.30,
 ) -> None:
+    """Add extra passages to make the maze non-perfect (with loops).
+
+    Args:
+        canvas: The display canvas to modify in place.
+        logic: The maze logic grid to update.
+        chance: Probability (0-1) of breaking each wall. Default 0.30.
+    """
     h: int = len(canvas)
     w: int = len(canvas[0])
 
@@ -156,7 +187,14 @@ def make_imperfect(
 
 
 class MazeGenerator:
+    """Maze generator using iterative DFS with 42 pattern support."""
+
     def __init__(self, config: dict[str, Any]):
+        """Initialize maze generator with configuration.
+
+        Args:
+            config: Dictionary with WIDTH, HEIGHT, ENTRY, EXIT, PERFECT, SEED.
+        """
         self.config = config
         self.width = config["WIDTH"]
         self.height = config["HEIGHT"]
@@ -170,6 +208,11 @@ class MazeGenerator:
         self.show_42 = True
 
     def generate(self) -> None:
+        """Generate the maze based on configuration.
+
+        Raises:
+            ValueError: If entry or exit is within the 42 pattern area.
+        """
         blocked = compute_42_cells(self.width, self.height)
 
         if not blocked:
@@ -191,6 +234,12 @@ class MazeGenerator:
         self.canvas = self.convert_to_canvas()
 
     def convert_to_canvas(self) -> list[list[int]]:
+        """Convert maze logic to display canvas.
+
+        Returns:
+            2D list representing the maze for terminal display,
+            where each cell is a constant (CV_WALL, CV_PATH, etc.).
+        """
         CV_WALL: int = 1
         CV_PATH: int = 0
         CV_ENTRY: int = 2

@@ -6,6 +6,16 @@ def write_output(
     logic: list[list[int]],
     path: list[tuple[int, int]],
 ) -> None:
+    """Write maze output to file.
+
+    Args:
+        settings: Configuration dictionary with OUTPUT_FILE, ENTRY, EXIT.
+        logic: 2D list of maze cell values.
+        path: List of (x, y) coordinates for solution path.
+
+    Raises:
+        PermissionError: If file cannot be written.
+    """
     output_path: str = settings["OUTPUT_FILE"]
     entry: tuple[int, int] = settings["ENTRY"]
     exit_: tuple[int, int] = settings["EXIT"]

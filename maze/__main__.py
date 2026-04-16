@@ -3,6 +3,7 @@ import sys
 
 
 def main() -> None:
+    """CLI entry point for the maze-run command."""
     if len(sys.argv) < 2:
         print("Usage: maze-run <config_file>")
         sys.exit(1)

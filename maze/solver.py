@@ -14,6 +14,15 @@ def bfs_solve(
     logic: list[list[int]],
     settings: dict[str, Any],
 ) -> list[tuple[int, int]]:
+    """Find shortest path from entry to exit using BFS.
+
+    Args:
+        logic: 2D list of maze cells with wall/path bitmasks.
+        settings: Dictionary with WIDTH, HEIGHT, ENTRY, EXIT.
+
+    Returns:
+        List of (x, y) coordinates representing the path from entry to exit.
+    """
     start: tuple[int, int] = settings["ENTRY"]
     goal: tuple[int, int] = settings["EXIT"]
     width: int = settings["WIDTH"]

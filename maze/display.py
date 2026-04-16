@@ -43,6 +43,12 @@ _42_PATTERN: str = "\033[36m▓▓\033[0m"
 
 
 def dmaze_display(canvas: list[list[int]], theme_index: int) -> None:
+    """Display the maze canvas in the terminal with colored theme.
+
+    Args:
+        canvas: 2D list of integers representing the maze grid.
+        theme_index: Index into THEMES list for color scheme.
+    """
     wall_e, entry_e, exit_e = THEMES[theme_index]
 
     for row in canvas:
@@ -68,7 +74,13 @@ def dmaze_display(canvas: list[list[int]], theme_index: int) -> None:
 def toggle_solution(
     path: list[tuple[int, int]], gen: MazeGenerator, show: bool
 ) -> None:
+    """Animate the solution path being drawn or erased.
 
+    Args:
+        path: List of (x, y) coordinates representing the solution path.
+        gen: MazeGenerator instance with canvas to modify.
+        show: If True, draw the path; if False, erase it.
+    """
     color = 6 if show else 0
     wall_change_interval = 30
 
@@ -89,14 +101,14 @@ def toggle_solution(
             if gen.canvas[gy][gx] not in (2, 3):
                 gen.canvas[gy][gx] = color
 
-            if dx == 1:  # im moving east
+            if dx == 1:
                 gen.canvas[gy][gx + 1] = color
-            elif dx == -1:  # im moving west
+            elif dx == -1:
                 gen.canvas[gy][gx - 1] = color
 
-            if dy == 1:  # im moving south
+            if dy == 1:
                 gen.canvas[gy + 1][gx] = color
-            elif dy == -1:  # im moving north
+            elif dy == -1:
                 gen.canvas[gy - 1][gx] = color
             if i > 0 and i % wall_change_interval == 0:
                 theme_index = random.randint(0, 2)
@@ -111,6 +123,12 @@ def toggle_solution(
 
 
 def animate_generation(gen: MazeGenerator, theme: int) -> None:
+    """Animate the maze generation process step by step.
+
+    Args:
+        gen: MazeGenerator instance with generation_stack to animate.
+        theme: Index into THEMES list for color scheme.
+    """
     print("\033[?25l", end="", flush=True)
     os.system("clear")
     blocked_cells = compute_42_cells(gen.width, gen.height)
@@ -136,7 +154,7 @@ def animate_generation(gen: MazeGenerator, theme: int) -> None:
     blank_canvas[2 * exit_y + 1][2 * exit_x + 1] = 3
     dmaze_display(blank_canvas, theme)
     time.sleep(0.3)
-    path_stack: list = []
+    path_stack: list[tuple[int, int]] = []
     for x, y in gen.generation_stack:
         cv_x = 2 * x + 1
         cv_y = 2 * y + 1
