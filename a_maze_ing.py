@@ -115,6 +115,7 @@ def main() -> None:
             try:
                 animate_generation(gen, theme)
             except (KeyboardInterrupt, EOFError):
+                # heigth = (gen.width * 2) + 1
                 print("\033[?25h", end="", flush=True)
                 print("\033[38;0f", end="")
                 print("                                     " +
@@ -134,7 +135,7 @@ def main() -> None:
                     if solution_shown:
                         toggle_solution(path, gen, True)
                     print("\033[H", end="")
-                    # dmaze_display(gen.canvas, theme)
+                    dmaze_display(gen.canvas, theme)
                     time.sleep(0.5)
             except KeyboardInterrupt:
                 os.system("clear")
