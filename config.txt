@@ -5,5 +5,4 @@ ENTRY=0,0
 EXIT=47,17
 PERFECT=True
 OUTPUT_FILE=maze.txt
-Infinite_loop=False
 # SEED=42
