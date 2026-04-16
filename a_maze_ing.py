@@ -6,7 +6,12 @@ import time
 from maze.config_parser import config_parser
 from maze.generator import MazeGenerator
 from maze.solver import bfs_solve
-from maze.display import dmaze_display, THEMES, toggle_solution, animate_generation
+from maze.display import (
+    dmaze_display,
+    THEMES,
+    toggle_solution,
+    animate_generation,
+)
 from maze.writer import write_output as _write_output
 
 
@@ -68,7 +73,7 @@ def main() -> None:
             gen = MazeGenerator(settings)
             gen.generate()
             path = bfs_solve(gen.logic, settings)
-            if solution_shown == True:
+            if solution_shown:
                 toggle_solution(path, gen, True)
             _write_output(settings, gen.logic, path)
 
@@ -100,7 +105,7 @@ def main() -> None:
             os.system("clear")
             dmaze_display(gen.canvas, theme)
             print(f"Theme changed to {theme}")
-        
+
         elif choice == "4":
             try:
                 animate_generation(gen, theme)
@@ -134,6 +139,7 @@ def main() -> None:
             print("\033[H", end="")
             dmaze_display(gen.canvas, theme)
             print("Invalid choice. Please enter a valid option.")
+
 
 if __name__ == "__main__":
     try:

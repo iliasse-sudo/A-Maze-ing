@@ -4,7 +4,6 @@ import random
 
 from maze.generator import MazeGenerator, compute_42_cells
 
-
 CV_WALL: int = 1
 CV_PATH: int = 0
 CV_ENTRY: int = 2
@@ -49,7 +48,10 @@ def dmaze_display(canvas: list[list[int]], theme_index: int) -> None:
                 line += entry_e
         print(line)
 
-def toggle_solution(path, gen, show):
+
+def toggle_solution(
+    path: list[tuple[int, int]], gen: MazeGenerator, show: bool
+) -> None:
 
     color = 6 if show else 0
     wall_change_interval = 30
@@ -80,17 +82,21 @@ def toggle_solution(path, gen, show):
         elif dy == -1:  # im moving north
             gen.canvas[gy - 1][gx] = color
         if i > 0 and i % wall_change_interval == 0:
-            theme_index = random.randint(0,2)
+            theme_index = random.randint(0, 2)
         print("\033[H", end="")
         dmaze_display(gen.canvas, theme_index)
-        time.sleep(.005)
+        time.sleep(0.005)
     print("\033[?25h", end="", flush=True)
+
 
 def animate_generation(gen: MazeGenerator, theme: int) -> None:
     print("\033[?25l", end="", flush=True)
     os.system("clear")
     blocked_cells = compute_42_cells(gen.width, gen.height)
-    blank_canvas = [[1 for _ in range(gen.width * 2 + 1)] for _ in range(gen.height * 2 + 1)]
+    blank_canvas = [
+        [1 for _ in range(gen.width * 2 + 1)]
+        for _ in range(gen.height * 2 + 1)
+    ]
     for cx, cy in blocked_cells:
         cv_x = 2 * cx + 1
         cv_y = 2 * cy + 1
@@ -109,10 +115,10 @@ def animate_generation(gen: MazeGenerator, theme: int) -> None:
     blank_canvas[2 * exit_y + 1][2 * exit_x + 1] = 3
     dmaze_display(blank_canvas, theme)
     time.sleep(0.3)
-    path_stack = []
+    path_stack: list = []
     for x, y in gen.generation_stack:
         cv_x = 2 * x + 1
-        cv_y = 2 * y + 1 
+        cv_y = 2 * y + 1
         blank_canvas[cv_y][cv_x] = 0
         if not path_stack:
             path_stack.append((x, y))
@@ -127,7 +133,7 @@ def animate_generation(gen: MazeGenerator, theme: int) -> None:
             pcv_y = 2 * py + 1
             wall_x = (cv_x + pcv_x) // 2
             wall_y = (cv_y + pcv_y) // 2
-            blank_canvas[wall_y][wall_x] = 0 
+            blank_canvas[wall_y][wall_x] = 0
             path_stack.append((x, y))
             print("\033[H", end="")
         blank_canvas[2 * entry_y + 1][2 * entry_x + 1] = 2
