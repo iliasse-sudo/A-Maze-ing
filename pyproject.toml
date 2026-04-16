@@ -5,11 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mazegen"
 version = "1.0.0"
-description = "A maze generator and solver with emoji display"
+description = "A maze generator and solver with display"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [
-    {name = "42 Student", email = "student@42.fr"}
+    {name = "Imad Temlali", email = "itemlali@student.1337.ma"},
+    {name = "Iliasse Baya", email = "ibaya@student.1337.ma"}
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
