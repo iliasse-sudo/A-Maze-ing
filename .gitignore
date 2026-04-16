@@ -12,3 +12,8 @@ __pycache__/
 
 # mypy cache
 .mypy_cache/
+
+# IDE specifics
+.vscode/
+.nvim/
+.vim/

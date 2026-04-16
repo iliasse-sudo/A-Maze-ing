@@ -12,11 +12,14 @@ CV_SOL: int = 6
 
 
 TEAL_GREEN = "\x1b[48;2;0;109;91m \x1b[0m\x1b[48;2;0;109;91m \x1b[0m"
+BLUE = "\x1b[48;2;45;51;107m" 
+WHITE = "\x1b[38;2;255;242;242m"
 
 THEMES: list[tuple[str, str, str]] = [
     ("\033[31m▓▓\033[0m", "\033[34m▓▓\033[0m", "XX"),
-    ("\033[32m▓▓\033[0m", "\033[35m▓▓\033[0m", "XX"),
+    ("\033[32m▓▓\033[0m", "\033[37\m▓▓\033[0m", "XX"),
     ("\033[33m▓▓\033[0m", TEAL_GREEN, "XX"),
+    ("\033[33m▓▓\033[0m", TEAL_GREEN, "XX")
 ]
 
 EMPTY_PATH: str = "  "
@@ -77,6 +80,6 @@ def toggle_solution(path, gen, show):
         elif dy == -1:  # im moving north
             gen.canvas[gy - 1][gx] = color
         if i > 0 and i % wall_change_interval == 0:
-            theme_index = random.randint(0,2)
+            theme_index = random.randint(0, len(THEMES))
         dmaze_display(gen.canvas, theme_index)
-        time.sleep(.005)
+        time.sleep(.0005)
