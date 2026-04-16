@@ -2,7 +2,7 @@ import os
 import time
 import random
 
-from maze.generator import MazeGenerator, compute_42_cells
+from maze.generator import MazeGenerator, compute_42_cells, make_imperfect
 
 CV_WALL: int = 1
 CV_PATH: int = 0
@@ -60,32 +60,37 @@ def toggle_solution(
 
     print("\033[?25l", end="", flush=True)
     for i in range(len(path) - 1):
-        cx, cy = path[i + 1]
-        px, py = path[i]
+        try:
+            cx, cy = path[i + 1]
+            px, py = path[i]
 
-        dx = cx - px
-        dy = cy - py
+            dx = cx - px
+            dy = cy - py
 
-        gx = 2 * px + 1
-        gy = 2 * py + 1
+            gx = 2 * px + 1
+            gy = 2 * py + 1
 
-        if gen.canvas[gy][gx] not in (2, 3):
-            gen.canvas[gy][gx] = color
+            if gen.canvas[gy][gx] not in (2, 3):
+                gen.canvas[gy][gx] = color
 
-        if dx == 1:  # im moving east
-            gen.canvas[gy][gx + 1] = color
-        elif dx == -1:  # im moving west
-            gen.canvas[gy][gx - 1] = color
+            if dx == 1:  # im moving east
+                gen.canvas[gy][gx + 1] = color
+            elif dx == -1:  # im moving west
+                gen.canvas[gy][gx - 1] = color
 
-        if dy == 1:  # im moving south
-            gen.canvas[gy + 1][gx] = color
-        elif dy == -1:  # im moving north
-            gen.canvas[gy - 1][gx] = color
-        if i > 0 and i % wall_change_interval == 0:
-            theme_index = random.randint(0, 2)
-        print("\033[H", end="")
-        dmaze_display(gen.canvas, theme_index)
-        time.sleep(0.005)
+            if dy == 1:  # im moving south
+                gen.canvas[gy + 1][gx] = color
+            elif dy == -1:  # im moving north
+                gen.canvas[gy - 1][gx] = color
+            if i > 0 and i % wall_change_interval == 0:
+                theme_index = random.randint(0, 2)
+            print("\033[H", end="")
+            dmaze_display(gen.canvas, theme_index)
+            time.sleep(0.005)
+        except KeyboardInterrupt:
+            os.system("clear")
+            dmaze_display(gen.canvas, theme_index)
+            break
     print("\033[?25h", end="", flush=True)
 
 
@@ -145,7 +150,8 @@ def animate_generation(gen: MazeGenerator, theme: int) -> None:
             print("\033[H", end="")
             dmaze_display(blank_canvas, theme)
             print("\033[?25h", end="", flush=True)
-            input("Generation paused. Press Enter to continue...")
+            input("Generation paused. Press Enter to " +
+                  "continue or CTRL+C to return to menu.")
             print("\033[?25l", end="", flush=True)
             os.system("clear")
         try:
@@ -154,8 +160,12 @@ def animate_generation(gen: MazeGenerator, theme: int) -> None:
             print("\033[H", end="")
             dmaze_display(blank_canvas, theme)
             print("\033[?25h", end="", flush=True)
-            input("Generation paused. Press Enter to continue...")
+            input("Generation paused. Press Enter to " +
+                  "continue or CTRL+C to return to menu.")
             print("\033[?25l", end="", flush=True)
             os.system("clear")
             continue
+    os.system("clear")
+    make_imperfect(blank_canvas, gen.logic)
+    dmaze_display(blank_canvas, theme)
     print("\033[?25h", end="", flush=True)

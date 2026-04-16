@@ -109,7 +109,11 @@ def main() -> None:
         elif choice == "4":
             try:
                 animate_generation(gen, theme)
-            except KeyboardInterrupt:
+            except (KeyboardInterrupt, EOFError):
+                print("\033[?25h", end="", flush=True)
+                print("\033[38;0f", end="")
+                print("                                     " +
+                      "                                    ", end="")
                 continue
 
         elif choice == "5":
@@ -136,6 +140,7 @@ def main() -> None:
             running = False
 
         else:
+            os.system("clear")
             print("\033[H", end="")
             dmaze_display(gen.canvas, theme)
             print("Invalid choice. Please enter a valid option.")
