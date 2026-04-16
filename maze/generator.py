@@ -59,7 +59,7 @@ def generate_maze_dfs(
     entry: tuple[int, int],
     blocked_cells: list[tuple[int, int]],
     seed: int | None = None,
-) -> list[list[int]]:
+) -> tuple[list[list[int]], list[tuple[int, int]]]:
     if seed is not None:
         random.seed(seed)
     else:
@@ -79,6 +79,7 @@ def generate_maze_dfs(
     sx, sy = entry
     visited[sy][sx] = True
     stack: list[tuple[int, int]] = [(sx, sy)]
+    generation_stack: list[tuple[int, int]] = [(sx, sy)]
 
     cells_carved: int = 0
 
@@ -103,6 +104,7 @@ def generate_maze_dfs(
 
                 visited[ny][nx] = True
                 stack.append((nx, ny))
+                generation_stack.append((nx, ny))
                 moved = True
                 cells_carved += 1
                 break
@@ -110,7 +112,7 @@ def generate_maze_dfs(
         if not moved:
             stack.pop()
 
-    return maze
+    return maze, generation_stack
 
 
 def make_imperfect(
@@ -164,6 +166,7 @@ class MazeGenerator:
         self.seed = config.get("SEED")
         self.logic: list[list[int]] = []
         self.canvas: list[list[int]] = []
+        self.generation_stack: list[tuple[int, int]] = []
         self.show_42 = True
 
     def generate(self) -> None:
@@ -177,7 +180,7 @@ class MazeGenerator:
                 "neither entry nor exit can be within the 42 squares"
             )
 
-        self.logic = generate_maze_dfs(
+        self.logic, self.generation_stack = generate_maze_dfs(
             self.width, self.height, self.entry, blocked, seed=self.seed
         )
 
