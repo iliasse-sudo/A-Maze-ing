@@ -17,10 +17,12 @@ python3 a_maze_ing.py config.txt
 
 ### Interactive Menu
 
-1. Re-generate a new maze
-2. Show/Hide solution path
-3. Change color theme
-4. Quit
+1. **Re-generate** - Generates a completely new maze with a random seed
+2. **Show/Hide** - Toggles the solution path display between visible and hidden
+3. **Change color** - Cycles through different color themes for walls and paths
+4. **Animate Generation** - Watch the maze being carved out step-by-step in real-time
+5. **Domain Expansion - Infinite Tsukuyomi** - Displays a continuously regenerating animated maze
+6. **Quit** - Exits the program
 
 ## Configuration File Format
 
@@ -81,17 +83,27 @@ path = bfs_solve(gen.logic, config)
 ## Team and Project Management
 
 ### Roles
-- **itemlali**: Primary development, maze generator algorithm implementation
-- **ibaya**: Display system, configuration parsing, testing
+- **itemlali**: Project architecture and code structure, configuration parsing, error handling, display system, color theming
+- **ibaya**: Algorithm research (BFS pathfinding, DFS maze generation), maze generator and canvas logic implementation, debugging, display assistance and animations
 
-### Planning
-- Initial phase: Core maze generation using iterative DFS
-- Development phase: Added BFS solver, color themes, configuration system
-- Testing phase: Bug fixes, animation features, performance optimization
+### Planning and Evolution
+1. **Foundation phase**: itemlali established the project structure, config parsing, and basic display framework. Learned from peer examples and 42 resources.
+2. **Algorithm phase**: ibaya researched and implemented maze generation (iterative DFS) and BFS pathfinding. Built the core logic/canvas system.
+3. **Integration phase**: Combined algorithms with display. Added error handling, refined output format.
+4. **Enhancement phase**: itemlali added color themes and theming system. ibaya implemented generation animation and visual polish.
+5. **Final polish**: Both worked on debugging, interactive menu features, and refinements.
+
+### Project Evolution
+- **Basic logic**: Numbers displayed on screen representing maze cells
+- **Letter representation**: Transitioned to letters for better visualization
+- **Path drawing**: Added solution path visualization
+- **Color and animation**: Full colored themes, animated generation, interactive features
+- **Final result**: Robust, lively animated maze with good design and interactive features
 
 ### What worked well
 - Clean separation between modules (generator, solver, display, writer)
 - Iterative DFS avoided recursion limit issues
+- Strong collaboration between algorithmic and UI development
 - Color themes and animation added as bonus features
 
 ### What could be improved
