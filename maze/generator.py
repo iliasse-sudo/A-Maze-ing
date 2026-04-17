@@ -39,7 +39,7 @@ def compute_42_cells(width: int, height: int) -> list[tuple[int, int]]:
         (cx - 2, cy),
         (cx - 1, cy),
         (cx - 1, cy + 1),
-        (cx - 1, cy + 2),  # 4
+        (cx - 1, cy + 2),
         (cx + 1, cy - 2),
         (cx + 2, cy - 2),
         (cx + 3, cy - 2),
@@ -51,7 +51,6 @@ def compute_42_cells(width: int, height: int) -> list[tuple[int, int]]:
         (cx + 1, cy + 2),
         (cx + 2, cy + 2),
         (cx + 3, cy + 2),
-        # 2
     ]
 
     valid_cells = [
@@ -105,8 +104,6 @@ def generate_maze_dfs(
     stack: list[tuple[int, int]] = [(sx, sy)]
     generation_stack: list[tuple[int, int]] = [(sx, sy)]
 
-    cells_carved: int = 0
-
     while stack:
         x, y = stack[-1]
 
@@ -130,7 +127,6 @@ def generate_maze_dfs(
                 stack.append((nx, ny))
                 generation_stack.append((nx, ny))
                 moved = True
-                cells_carved += 1
                 break
 
         if not moved:
