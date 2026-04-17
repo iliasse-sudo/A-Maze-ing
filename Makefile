@@ -24,7 +24,7 @@ debug:
 clean:
 	rm -rf build/ dist/
 	rm -rf $(CACHE)
-	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+	find . -type d -name __pycache__ -exec rm -rf {} +
 	find . -type f -name "*.pyc" -delete
 
 lint:
