@@ -24,8 +24,8 @@ debug:
 clean:
 	rm -rf build/ dist/
 	rm -rf $(CACHE)
-	find . -type d -name __pycache__ -exec rm -rf {} +
 	find . -type f -name "*.pyc" -delete
+	find . -type d -name __pycache__ -exec rm -rf {} +
 
 lint:
 	flake8 .

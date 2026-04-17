@@ -57,7 +57,7 @@ def main() -> None:
         print("|                A-Maze-Ing Menu             |")
         print("+--------------------------------------------+")
         print("| 1. Re-generate                             |")
-        print("| 2. Show/Hide                               |")
+        print("| 2. Show/Hide Path                          |")
         print("| 3. Change color                            |")
         print("| 4. Animate Generation                      |")
         print("| 5. Domain Expansion - Infinite Tsukuyomi   |")
