@@ -26,6 +26,7 @@ clean:
 	rm -rf $(CACHE)
 	find . -type f -name "*.pyc" -delete
 	find . -type d -name __pycache__ -exec rm -rf {} +
+
 lint:
 	flake8 .
 	mypy maze/ a_maze_ing.py --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs
