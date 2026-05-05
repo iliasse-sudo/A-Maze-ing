@@ -200,6 +200,7 @@ def animate_generation(gen: MazeGenerator, theme: int) -> None:
             os.system("clear")
             continue
     os.system("clear")
-    make_imperfect(blank_canvas, gen.logic)
+    if not gen.perfect:
+        make_imperfect(blank_canvas, gen.logic)
     dmaze_display(blank_canvas, theme)
     print("\033[?25h", end="", flush=True)
